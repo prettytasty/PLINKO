@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plinko - Free Play</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -21,7 +16,6 @@
             align-items: center;
             padding: 20px;
         }
-
         .container {
             max-width: 1400px;
             width: 100%;
@@ -29,479 +23,351 @@
             grid-template-columns: 320px 1fr;
             gap: 30px;
         }
-
         .sidebar {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border-radius: 15px;
             padding: 25px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .balance {
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .balance-label {
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-
-        .balance-amount {
-            font-size: 24px;
-            font-weight: bold;
-            color: #00d4ff;
-        }
-
-        .control-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-        }
-
-        .risk-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .risk-btn {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-        }
-
-        .risk-btn.active {
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            border-color: #00d4ff;
-        }
-
-        .drop-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .drop-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .drop-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .game-area {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        canvas {
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .stats {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #00d4ff;
-        }
-
-        .disclaimer {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 165, 0, 0.1);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 165, 0, 0.3);
-            font-size: 12px;
-            text-align: center;
-            color: #ffa500;
-        }
+        .logo { font-size: 28px; font-weight: bold; margin-bottom: 30px; background: linear-gradient(45deg, #00d4ff, #0099ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .balance { background: rgba(0,212,255,0.1); border-radius: 10px; padding: 15px; margin-bottom: 25px; border: 1px solid rgba(0,212,255,0.3); }
+        .balance-label { font-size: 12px; color: #aaa; margin-bottom: 5px; }
+        .balance-amount { font-size: 24px; font-weight: bold; color: #00d4ff; }
+        .control-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; color: #aaa; margin-bottom: 8px; }
+        input, select { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; }
+        .risk-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+        .risk-btn { padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s; font-size: 13px; }
+        .risk-btn.active { background: linear-gradient(45deg, #00d4ff, #0099ff); border-color: #00d4ff; }
+        .drop-btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #00d4ff, #0099ff); border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+        .drop-btn:hover { transform: translateY(-2px); }
+        .drop-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .game-area { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; }
+        canvas { border-radius: 10px; background: rgba(0,0,0,0.2); }
+        .stats { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; max-width: 600px; }
+        .stat-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-label { font-size: 12px; color: #aaa; margin-bottom: 5px; }
+        .stat-value { font-size: 20px; font-weight: bold; color: #00d4ff; }
+        .disclaimer { margin-top: 20px; padding: 15px; background: rgba(255,165,0,0.1); border-radius: 8px; border: 1px solid rgba(255,165,0,0.3); font-size: 12px; text-align: center; color: #ffa500; }
+        .ball-count-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+        .count-btn { padding: 8px 4px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; cursor: pointer; transition: all 0.3s; font-size: 12px; }
+        .count-btn.active { background: linear-gradient(45deg, #00d4ff, #0099ff); border-color: #00d4ff; }
+        .win-flash { position: absolute; pointer-events: none; border-radius: 4px; animation: flash 0.8s ease-out forwards; font-size: 11px; font-weight: bold; color: #fff; text-align: center; padding: 2px 4px; }
+        @keyframes flash { 0%{opacity:1;transform:translateY(0);} 100%{opacity:0;transform:translateY(-30px);} }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="logo">🎰 PLINKO</div>
-            
-            <div class="balance">
-                <div class="balance-label">Virtual Balance</div>
-                <div class="balance-amount" id="balance">0 chips</div>
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">🎰 PLINKO</div>
+        <div class="balance">
+            <div class="balance-label">Virtual Balance</div>
+            <div class="balance-amount" id="balance">0 chips</div>
+        </div>
+        <div class="control-group">
+            <label>Promo Code</label>
+            <div style="display:flex;gap:8px;">
+                <input type="text" id="promoCode" placeholder="Enter code..." style="flex:1;">
+                <button onclick="redeemCode()" style="padding:12px 20px;background:linear-gradient(45deg,#4CAF50,#45a049);border:none;border-radius:8px;color:#fff;cursor:pointer;font-weight:bold;">Redeem</button>
             </div>
-
-            <div class="control-group">
-                <label>Promo Code</label>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="promoCode" placeholder="Enter code..." style="flex: 1;">
-                    <button onclick="redeemCode()" style="padding: 12px 20px; background: linear-gradient(45deg, #4CAF50, #45a049); border: none; border-radius: 8px; color: #fff; cursor: pointer; font-weight: bold;">Redeem</button>
-                </div>
-                <div id="promoMessage" style="font-size: 12px; margin-top: 8px; min-height: 18px;"></div>
-            </div>
-
-            <div class="control-group">
-                <label>Bet Amount (chips)</label>
-                <input type="number" id="betAmount" value="20" min="10" max="1000" step="10">
-            </div>
-
-            <div class="control-group">
-                <label>Risk Level</label>
-                <div class="risk-buttons">
-                    <button class="risk-btn" onclick="setRisk('low')">Low</button>
-                    <button class="risk-btn active" onclick="setRisk('medium')">Medium</button>
-                    <button class="risk-btn" onclick="setRisk('high')">High</button>
-                </div>
-                <button class="risk-btn" onclick="setRisk('zach')" style="margin-top: 8px; width: 100%; background: linear-gradient(45deg, #4A148C, #000); border: 2px solid #9C27B0;">💀 ZACH MODE 💀</button>
-            </div>
-
-            <button class="drop-btn" id="dropBtn" onclick="dropBall()">DROP BALL</button>
-
-            <div class="disclaimer">
-                ⚠️ FREE PLAY ONLY<br>
-                Virtual chips have no real value
+            <div id="promoMessage" style="font-size:12px;margin-top:8px;min-height:18px;"></div>
+        </div>
+        <div class="control-group">
+            <label>Bet Per Ball (chips)</label>
+            <input type="number" id="betAmount" value="20" min="10" max="1000" step="10">
+        </div>
+        <div class="control-group">
+            <label>Number of Balls</label>
+            <div class="ball-count-buttons">
+                <button class="count-btn active" onclick="setBallCount(1,this)">1</button>
+                <button class="count-btn" onclick="setBallCount(3,this)">3</button>
+                <button class="count-btn" onclick="setBallCount(5,this)">5</button>
+                <button class="count-btn" onclick="setBallCount(10,this)">10</button>
+                <button class="count-btn" onclick="setBallCount(20,this)">20</button>
             </div>
         </div>
-
-        <div class="game-area">
-            <canvas id="plinkoCanvas" width="600" height="700"></canvas>
-            
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label">Total Drops</div>
-                    <div class="stat-value" id="totalDrops">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Last Win</div>
-                    <div class="stat-value" id="lastWin">-</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Biggest Win</div>
-                    <div class="stat-value" id="biggestWin">0</div>
-                </div>
+        <div class="control-group">
+            <label>Risk Level</label>
+            <div class="risk-buttons">
+                <button class="risk-btn" onclick="setRisk('low',this)">Low</button>
+                <button class="risk-btn active" onclick="setRisk('medium',this)">Medium</button>
+                <button class="risk-btn" onclick="setRisk('high',this)">High</button>
             </div>
-
-            <div style="margin-top: 20px; text-align: center; color: #00d4ff; font-size: 14px; opacity: 0.8;">
-                Made by <strong>Tony Nguyen</strong>
-            </div>
+            <button class="risk-btn" onclick="setRisk('zach',this)" style="margin-top:8px;width:100%;background:linear-gradient(45deg,#4A148C,#000);border:2px solid #9C27B0;">💀 ZACH MODE 💀</button>
         </div>
+        <button class="drop-btn" id="dropBtn" onclick="dropBalls()">DROP BALLS</button>
+        <div class="disclaimer">⚠️ FREE PLAY ONLY<br>Virtual chips have no real value</div>
     </div>
+    <div class="game-area" style="position:relative;">
+        <canvas id="plinkoCanvas" width="600" height="700"></canvas>
+        <div id="winFlashes" style="position:absolute;top:30px;left:30px;right:30px;bottom:90px;pointer-events:none;overflow:hidden;"></div>
+        <div class="stats">
+            <div class="stat-card"><div class="stat-label">Total Drops</div><div class="stat-value" id="totalDrops">0</div></div>
+            <div class="stat-card"><div class="stat-label">Last Round</div><div class="stat-value" id="lastWin">-</div></div>
+            <div class="stat-card"><div class="stat-label">Biggest Win</div><div class="stat-value" id="biggestWin">0</div></div>
+        </div>
+        <div style="margin-top:20px;text-align:center;color:#00d4ff;font-size:14px;opacity:0.8;">Made by <strong>Tony Nguyen</strong></div>
+    </div>
+</div>
+<script>
+const canvas = document.getElementById('plinkoCanvas');
+const ctx = canvas.getContext('2d');
+let balance = 0, totalDrops = 0, biggestWin = 0, currentRisk = 'medium', ballCount = 1;
+let activeBalls = [], animFrameId = null, pendingBalls = 0, ballsFinished = 0, roundBet = 0, roundWin = 0;
 
-    <script>
-        const canvas = document.getElementById('plinkoCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        let balance = 0;
-        let totalDrops = 0;
-        let biggestWin = 0;
-        let currentRisk = 'medium';
-        let isDropping = false;
+const promoCodes = { 'TONY':1000,'FREECHIPS':1000,'BONUS500':500,'START100':100,'LUCKY777':777 };
+const multipliers = {
+    low: [2,1.5,1.2,1,0.7,0.4,0.7,1,1.2,1.5,2],
+    medium: [5,3,2,1.3,0.7,0.3,0.7,1.3,2,3,5],
+    high: [15,8,4,2,0.7,0.2,0.7,2,4,8,15],
+    zach: [0.5,0.4,0.3,0.2,0.1,0.01,0.1,0.2,0.3,0.4,0.5]
+};
+const multiplierColors = {
+    low: ['#4CAF50','#66BB6A','#81C784','#A5D6A7','#E57373','#FF5252','#E57373','#A5D6A7','#81C784','#66BB6A','#4CAF50'],
+    medium: ['#FF9800','#FFA726','#FFB74D','#FFCC80','#E57373','#FF5252','#E57373','#FFCC80','#FFB74D','#FFA726','#FF9800'],
+    high: ['#F44336','#E91E63','#9C27B0','#673AB7','#E57373','#FF5252','#E57373','#673AB7','#9C27B0','#E91E63','#F44336'],
+    zach: ['#4A148C','#6A1B9A','#7B1FA2','#8E24AA','#9C27B0','#000000','#9C27B0','#8E24AA','#7B1FA2','#6A1B9A','#4A148C']
+};
 
-        const promoCodes = {
-            'TONY': 1000,
-            'FREECHIPS': 1000,
-            'BONUS500': 500,
-            'START100': 100,
-            'LUCKY777': 777
-        };
+const rows = 12, pegRadius = 4, ballRadius = 6;
+const startY = 50, rowGap = 45, pegGap = 40;
+const startX = canvas.width / 2;
 
-        const multipliers = {
-            low: [2, 1.5, 1.2, 1, 0.7, 0.4, 0.7, 1, 1.2, 1.5, 2],
-            medium: [5, 3, 2, 1.3, 0.7, 0.3, 0.7, 1.3, 2, 3, 5],
-            high: [15, 8, 4, 2, 0.7, 0.2, 0.7, 2, 4, 8, 15],
-            zach: [0.5, 0.4, 0.3, 0.2, 0.1, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5]
-        };
+const ballColors = ['#00d4ff','#ff6b6b','#ffd93d','#6bcb77','#ff9f43','#a29bfe','#fd79a8','#55efc4','#fdcb6e','#e17055','#74b9ff','#00cec9','#b2bec3','#636e72','#2d3436','#d63031','#e84393','#00b894','#0984e3','#6c5ce7'];
 
-        const multiplierColors = {
-            low: ['#4CAF50', '#66BB6A', '#81C784', '#A5D6A7', '#E57373', '#FF5252', '#E57373', '#A5D6A7', '#81C784', '#66BB6A', '#4CAF50'],
-            medium: ['#FF9800', '#FFA726', '#FFB74D', '#FFCC80', '#E57373', '#FF5252', '#E57373', '#FFCC80', '#FFB74D', '#FFA726', '#FF9800'],
-            high: ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#E57373', '#FF5252', '#E57373', '#673AB7', '#9C27B0', '#E91E63', '#F44336'],
-            zach: ['#4A148C', '#6A1B9A', '#7B1FA2', '#8E24AA', '#9C27B0', '#000000', '#9C27B0', '#8E24AA', '#7B1FA2', '#6A1B9A', '#4A148C']
-        };
-
-        const rows = 12;
-        const pegRadius = 4;
-        const ballRadius = 6;
-        const startX = canvas.width / 2;
-        const startY = 50;
-        const rowGap = 45;
-        const pegGap = 40;
-
-        class Ball {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = 0;
-                this.vy = 0;
-                this.gravity = 0.4;
-                this.bounceCount = 0;
+class Ball {
+    constructor(x, y, colorIdx) {
+        this.x = x; this.y = y;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = 1;
+        this.gravity = 0.4;
+        this.done = false;
+        this.color = ballColors[colorIdx % ballColors.length];
+        this.trail = [];
+    }
+    update(pegs) {
+        if (this.done) return;
+        this.trail.push({x: this.x, y: this.y});
+        if (this.trail.length > 6) this.trail.shift();
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        pegs.forEach(peg => {
+            const dx = this.x - peg.x, dy = this.y - peg.y;
+            const dist = Math.sqrt(dx*dx+dy*dy);
+            if (dist < ballRadius + pegRadius) {
+                const angle = Math.atan2(dy, dx);
+                this.x = peg.x + Math.cos(angle)*(pegRadius+ballRadius);
+                this.y = peg.y + Math.sin(angle)*(pegRadius+ballRadius);
+                this.vx = Math.cos(angle)*3 + (Math.random()-0.5)*2;
+                this.vy = Math.sin(angle)*3;
             }
-
-            update(pegs) {
-                this.vy += this.gravity;
-                this.x += this.vx;
-                this.y += this.vy;
-
-                pegs.forEach(peg => {
-                    const dx = this.x - peg.x;
-                    const dy = this.y - peg.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < ballRadius + pegRadius) {
-                        const angle = Math.atan2(dy, dx);
-                        const targetX = peg.x + Math.cos(angle) * (pegRadius + ballRadius);
-                        const targetY = peg.y + Math.sin(angle) * (pegRadius + ballRadius);
-                        
-                        this.x = targetX;
-                        this.y = targetY;
-                        
-                        this.vx = Math.cos(angle) * 3 + (Math.random() - 0.5) * 2;
-                        this.vy = Math.sin(angle) * 3;
-                        this.bounceCount++;
-                    }
-                });
-
-                this.vx *= 0.99;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, ballRadius, 0, Math.PI * 2);
-                ctx.fillStyle = '#00d4ff';
-                ctx.fill();
-                ctx.strokeStyle = '#fff';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            }
+        });
+        this.vx *= 0.99;
+        if (this.x < ballRadius) { this.x = ballRadius; this.vx = Math.abs(this.vx); }
+        if (this.x > canvas.width - ballRadius) { this.x = canvas.width - ballRadius; this.vx = -Math.abs(this.vx); }
+        if (this.y >= canvas.height - 70) { this.done = true; }
+    }
+    draw() {
+        for (let i = 0; i < this.trail.length; i++) {
+            const alpha = (i/this.trail.length) * 0.3;
+            ctx.beginPath();
+            ctx.arc(this.trail[i].x, this.trail[i].y, ballRadius*(0.5+0.5*i/this.trail.length), 0, Math.PI*2);
+            ctx.fillStyle = this.color.replace(')', `,${alpha})`).replace('rgb(', 'rgba(').replace('#', 'rgba(').replace('rgba(', 'rgba(');
+            ctx.globalAlpha = alpha;
+            ctx.fill();
         }
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+}
 
-        function createPegs() {
-            const pegs = [];
-            for (let row = 0; row < rows; row++) {
-                const pegsInRow = row + 3;
-                const rowWidth = (pegsInRow - 1) * pegGap;
-                const rowStartX = (canvas.width - rowWidth) / 2;
-                
-                for (let col = 0; col < pegsInRow; col++) {
-                    pegs.push({
-                        x: rowStartX + col * pegGap,
-                        y: startY + row * rowGap
-                    });
-                }
-            }
-            return pegs;
+function createPegs() {
+    const pegs = [];
+    for (let row = 0; row < rows; row++) {
+        const n = row + 3;
+        const rowWidth = (n-1)*pegGap;
+        const rx = (canvas.width - rowWidth)/2;
+        for (let col = 0; col < n; col++) {
+            pegs.push({x: rx+col*pegGap, y: startY+row*rowGap});
         }
+    }
+    return pegs;
+}
+const pegs = createPegs();
 
-        const pegs = createPegs();
+function drawPegs() {
+    pegs.forEach(peg => {
+        ctx.beginPath();
+        ctx.arc(peg.x, peg.y, pegRadius, 0, Math.PI*2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+    });
+}
 
-        function drawPegs() {
-            ctx.fillStyle = '#fff';
-            pegs.forEach(peg => {
-                ctx.beginPath();
-                ctx.arc(peg.x, peg.y, pegRadius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-        }
+function drawMultipliers(highlightIdx) {
+    const slotW = 50, slotH = 40;
+    const sx = (canvas.width - multipliers[currentRisk].length*slotW)/2;
+    const y = canvas.height - 60;
+    multipliers[currentRisk].forEach((mult, i) => {
+        const x = sx + i*slotW;
+        ctx.fillStyle = (i === highlightIdx) ? '#fff' : multiplierColors[currentRisk][i];
+        ctx.fillRect(x, y, slotW-2, slotH);
+        ctx.fillStyle = (i === highlightIdx) ? '#000' : '#fff';
+        ctx.font = 'bold 13px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(mult+'x', x+slotW/2, y+25);
+    });
+}
 
-        function drawMultipliers() {
-            const slotWidth = 50;
-            const slotHeight = 40;
-            const startX = (canvas.width - (multipliers[currentRisk].length * slotWidth)) / 2;
-            const y = canvas.height - 60;
+function getMultiplierIndex(x) {
+    const slotW = 50;
+    const sx = (canvas.width - multipliers[currentRisk].length*slotW)/2;
+    return Math.max(0, Math.min(multipliers[currentRisk].length-1, Math.floor((x-sx)/slotW)));
+}
 
-            multipliers[currentRisk].forEach((mult, i) => {
-                const x = startX + i * slotWidth;
-                
-                ctx.fillStyle = multiplierColors[currentRisk][i];
-                ctx.fillRect(x, y, slotWidth - 2, slotHeight);
-                
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 13px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText(mult + 'x', x + slotWidth / 2, y + 25);
-            });
-        }
+function setRisk(risk, el) {
+    currentRisk = risk;
+    document.querySelectorAll('.risk-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    draw();
+}
 
-        function getMultiplierIndex(x) {
-            const slotWidth = 50;
-            const startX = (canvas.width - (multipliers[currentRisk].length * slotWidth)) / 2;
-            return Math.floor((x - startX) / slotWidth);
-        }
+function setBallCount(n, el) {
+    ballCount = n;
+    document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    updateDropBtn();
+}
 
-        function setRisk(risk) {
-            currentRisk = risk;
-            document.querySelectorAll('.risk-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+function updateDropBtn() {
+    const bet = parseInt(document.getElementById('betAmount').value)||0;
+    const total = bet * ballCount;
+    document.getElementById('dropBtn').textContent = `DROP ${ballCount} BALL${ballCount>1?'S':''} (${total} chips)`;
+}
+
+document.getElementById('betAmount').addEventListener('input', updateDropBtn);
+updateDropBtn();
+
+function updateBalance(amount) {
+    balance += amount;
+    document.getElementById('balance').textContent = balance + ' chips';
+}
+
+function redeemCode() {
+    const code = document.getElementById('promoCode').value.trim().toUpperCase();
+    const msg = document.getElementById('promoMessage');
+    if (!code) { msg.style.color='#ff6b6b'; msg.textContent='Please enter a code'; return; }
+    if (promoCodes[code] !== undefined) {
+        const amount = promoCodes[code];
+        updateBalance(amount);
+        msg.style.color='#4CAF50';
+        msg.textContent=`✓ Added ${amount} chips!`;
+        document.getElementById('promoCode').value='';
+        delete promoCodes[code];
+        setTimeout(()=>msg.textContent='',3000);
+    } else {
+        msg.style.color='#ff6b6b'; msg.textContent='✗ Invalid or already used code';
+        setTimeout(()=>msg.textContent='',3000);
+    }
+}
+
+function showWinFlash(x, y, amount, multiplier) {
+    const container = document.getElementById('winFlashes');
+    const el = document.createElement('div');
+    el.className = 'win-flash';
+    const color = amount >= 0 ? '#4CAF50' : '#FF5252';
+    el.style.cssText = `left:${x}px;top:${y}px;background:${color};border-radius:4px;`;
+    el.textContent = (amount>=0?'+':'')+amount+' ('+multiplier+'x)';
+    container.appendChild(el);
+    setTimeout(()=>el.remove(), 900);
+}
+
+function dropBalls() {
+    const bet = parseInt(document.getElementById('betAmount').value);
+    const total = bet * ballCount;
+    if (total > balance) { alert('Insufficient chips! Need '+total+' chips.'); return; }
+    if (activeBalls.length > 0) return;
+
+    updateBalance(-total);
+    totalDrops++;
+    document.getElementById('totalDrops').textContent = totalDrops;
+    roundBet = total; roundWin = 0;
+    ballsFinished = 0;
+    pendingBalls = ballCount;
+    document.getElementById('dropBtn').disabled = true;
+
+    for (let i = 0; i < ballCount; i++) {
+        setTimeout(() => {
+            const spread = Math.min(ballCount * 5, 60);
+            const offsetX = ballCount > 1 ? (Math.random()-0.5)*spread : 0;
+            activeBalls.push(new Ball(startX + offsetX, startY - 10, i));
+        }, i * (ballCount > 5 ? 80 : 120));
+    }
+
+    if (!animFrameId) animate();
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPegs();
+    drawMultipliers(-1);
+
+    let toRemove = [];
+    activeBalls.forEach((ball, idx) => {
+        ball.update(pegs);
+        ball.draw();
+        if (ball.done) toRemove.push(idx);
+    });
+
+    toRemove.reverse().forEach(idx => {
+        const ball = activeBalls[idx];
+        const mIdx = getMultiplierIndex(ball.x);
+        const mult = multipliers[currentRisk][mIdx];
+        const bet = parseInt(document.getElementById('betAmount').value);
+        const win = Math.floor(bet * mult);
+        const net = win - bet;
+        roundWin += win;
+        updateBalance(win);
+        const canvasRect = canvas.getBoundingClientRect();
+        const gameArea = document.querySelector('.game-area').getBoundingClientRect();
+        const relX = ball.x - 30;
+        const relY = canvas.height - 80;
+        showWinFlash(relX, relY, net, mult);
+        activeBalls.splice(idx, 1);
+        ballsFinished++;
+        if (ballsFinished === pendingBalls) {
+            const roundNet = roundWin - roundBet;
+            document.getElementById('lastWin').textContent = (roundNet>=0?'+':'')+roundNet;
+            if (roundWin > biggestWin) { biggestWin = roundWin; document.getElementById('biggestWin').textContent = biggestWin; }
+            document.getElementById('dropBtn').disabled = false;
+            animFrameId = null;
             draw();
+            return;
         }
+    });
 
-        function updateBalance(amount) {
-            balance += amount;
-            document.getElementById('balance').textContent = balance + ' chips';
-        }
+    if (activeBalls.length > 0 || pendingBalls > ballsFinished) {
+        animFrameId = requestAnimationFrame(animate);
+    } else {
+        animFrameId = null;
+    }
+}
 
-        function redeemCode() {
-            const code = document.getElementById('promoCode').value.trim().toUpperCase();
-            const messageEl = document.getElementById('promoMessage');
-            
-            if (!code) {
-                messageEl.style.color = '#ff6b6b';
-                messageEl.textContent = 'Please enter a code';
-                return;
-            }
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPegs();
+    drawMultipliers(-1);
+}
 
-            if (promoCodes[code] !== undefined) {
-                const amount = promoCodes[code];
-                updateBalance(amount);
-                messageEl.style.color = '#4CAF50';
-                messageEl.textContent = `✓ Added ${amount} chips!`;
-                document.getElementById('promoCode').value = '';
-                
-                // Remove the used code
-                delete promoCodes[code];
-                
-                setTimeout(() => {
-                    messageEl.textContent = '';
-                }, 3000);
-            } else {
-                messageEl.style.color = '#ff6b6b';
-                messageEl.textContent = '✗ Invalid or already used code';
-                setTimeout(() => {
-                    messageEl.textContent = '';
-                }, 3000);
-            }
-        }
-
-        function updateStats(win) {
-            totalDrops++;
-            document.getElementById('totalDrops').textContent = totalDrops;
-            document.getElementById('lastWin').textContent = win > 0 ? '+' + win : win;
-            
-            if (win > biggestWin) {
-                biggestWin = win;
-                document.getElementById('biggestWin').textContent = biggestWin;
-            }
-        }
-
-        async function dropBall() {
-            const betAmount = parseInt(document.getElementById('betAmount').value);
-            
-            if (betAmount > balance) {
-                alert('Insufficient chips!');
-                return;
-            }
-
-            if (isDropping) return;
-            
-            isDropping = true;
-            document.getElementById('dropBtn').disabled = true;
-            updateBalance(-betAmount);
-
-            const ball = new Ball(startX + (Math.random() - 0.5) * 10, startY);
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawPegs();
-                drawMultipliers();
-                
-                ball.update(pegs);
-                ball.draw();
-
-                if (ball.y < canvas.height - 70) {
-                    requestAnimationFrame(animate);
-                } else {
-                    const index = getMultiplierIndex(ball.x);
-                    const validIndex = Math.max(0, Math.min(multipliers[currentRisk].length - 1, index));
-                    const multiplier = multipliers[currentRisk][validIndex];
-                    const winAmount = Math.floor(betAmount * multiplier);
-                    
-                    updateBalance(winAmount);
-                    updateStats(winAmount - betAmount);
-                    
-                    isDropping = false;
-                    document.getElementById('dropBtn').disabled = false;
-                }
-            }
-
-            animate();
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawPegs();
-            drawMultipliers();
-        }
-
-        draw();
-    </script>
+draw();
+</script>
 </body>
 </html>
